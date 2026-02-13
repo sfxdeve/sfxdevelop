@@ -1,5 +1,21 @@
 ---
+import { cn } from "../../lib/utils";
+import { normalizePath } from "../../lib/path";
 import "../../styles/global.css";
+
+interface Props {
+    title?: string;
+    description?: string;
+}
+
+const { title, description } = Astro.props;
+
+const navItems = [
+    { label: "Home", href: "/" },
+    { label: "Work", href: "/work/" },
+    { label: "Resume", href: "/resume/" },
+    { label: "Contact", href: "/contact/" },
+];
 ---
 
 <html lang="en">
@@ -7,13 +23,80 @@ import "../../styles/global.css";
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <title>SFX Develops</title>
-        <meta name="description" content="SFX Develops" />
+        <title>
+            {title ? title : "Shayan Fareed | Full Stack JavaScript Developer"}
+        </title>
+        <meta
+            name="description"
+            content={description
+                ? description
+                : "Portfolio of Shayan Fareed, a production-focused Full Stack JavaScript Developer building scalable web applications."}
+        />
         <meta name="generator" content={Astro.generator} />
     </head>
-    <body>
-        <main>
+    <body class="min-h-dvh font-body bg-ink-950">
+        <header class="border-b-4 border-paper-50 bg-ink-950">
+            <div
+                class="container mx-auto py-4 flex flex-wrap gap-3 items-center justify-between"
+            >
+                <a
+                    href="/"
+                    class="font-display uppercase tracking-wider text-3xl text-paper-50"
+                >
+                    SFX//Develops
+                </a>
+                <nav>
+                    <ul class="flex flex-wrap gap-2 items-center">
+                        {
+                            navItems.map((item) => {
+                                const currPath = normalizePath(
+                                    Astro.url.pathname,
+                                );
+                                const itemPath = normalizePath(item.href);
+                                const itemIsActive =
+                                    itemPath === "/"
+                                        ? currPath === "/"
+                                        : currPath.startsWith(itemPath);
+
+                                return (
+                                    <li>
+                                        <a
+                                            href={item.href}
+                                            class={cn(
+                                                "border-2 border-paper-50 py-2 px-3 font-mono uppercase tracking-wider text-xs text-paper-50 transition hover:text-ink-950 hover:bg-paper-50",
+                                                !itemIsActive && "",
+                                                itemIsActive &&
+                                                    "border-acid-300 text-ink-950 bg-acid-300",
+                                            )}
+                                        >
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                );
+                            })
+                        }
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main class="container mx-auto py-4 sm:py-12">
             <slot />
         </main>
+        <footer class="border-t-4 border-paper-50 bg-ink-950">
+            <div
+                class="container mx-auto py-4 flex flex-wrap gap-3 items-center justify-between"
+            >
+                <p
+                    class="font-mono uppercase tracking-wider text-xs text-paper-200"
+                >
+                    2026 SFX Develops
+                </p>
+                <p
+                    class="font-mono uppercase tracking-wider text-xs text-acid-100"
+                >
+                    Built with Astro + Tailwind
+                </p>
+            </div>
+        </footer>
     </body>
 </html>
