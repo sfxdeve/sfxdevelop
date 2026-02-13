@@ -8,11 +8,11 @@ interface Props {
 const { kicker, title, description } = Astro.props;
 ---
 
-<section class="container mx-auto p-4 sm:py-12">
-    <div class="space-y-3">
+<section class="p-4 sm:py-12">
+    <div class="space-y-3 container mx-auto">
         {
             kicker && (
-                <p class="font-mono uppercase tracking-widest text-xs text-acid-200">
+                <p class="font-mono uppercase tracking-widest text-xs text-acid-300">
                     {kicker}
                 </p>
             )
