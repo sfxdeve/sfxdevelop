@@ -1,0 +1,49 @@
+---
+interface HeroCta {
+  href: string;
+  label: string;
+  variant?: "primary" | "secondary";
+}
+
+interface Props {
+  name: string;
+  title: string;
+  strapline: string;
+  location: string;
+  relocation: string;
+  ctas: HeroCta[];
+}
+
+const { name, title, strapline, location, relocation, ctas } = Astro.props;
+---
+
+<section class="animate-reveal space-y-8">
+  <div class="brutal-frame p-6 md:p-10">
+    <p class="mb-4 font-mono text-xs font-semibold uppercase tracking-[0.16em]">Portfolio / 2026</p>
+    <h1 class="max-w-5xl text-balance text-5xl font-black uppercase leading-[0.9] tracking-tight md:text-7xl">
+      {name}
+    </h1>
+    <p class="mt-4 max-w-4xl text-xl font-bold uppercase leading-tight md:text-2xl">{title}</p>
+    <p class="mt-5 max-w-3xl text-base leading-relaxed md:text-lg">{strapline}</p>
+    <div class="mt-7 flex flex-wrap gap-2">
+      <span class="brutal-chip">{location}</span>
+      <span class="brutal-chip bg-acid">{relocation}</span>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap gap-3">
+    {
+      ctas.map((cta) => (
+        <a
+          href={cta.href}
+          class:list={[
+            "hover-lift border-2 border-ink px-5 py-3 text-sm font-bold uppercase tracking-[0.15em] no-underline",
+            cta.variant === "primary" ? "bg-acid" : "bg-paper",
+          ]}
+        >
+          {cta.label}
+        </a>
+      ))
+    }
+  </div>
+</section>

@@ -1,7 +1,72 @@
 ---
 import RootLayout from "../components/layouts/root-layout.astro";
+import Hero from "../components/site/hero.astro";
+import SectionTitle from "../components/site/section-title.astro";
+import SkillMatrix from "../components/site/skill-matrix.astro";
+import { profileData } from "../data/profile";
+
+const heroCtas = [
+  { href: "/work/", label: "View Work", variant: "primary" as const },
+  { href: "/resume/", label: "Read Resume", variant: "secondary" as const },
+  { href: "/contact/", label: "Contact", variant: "secondary" as const },
+];
 ---
 
-<RootLayout>
-	<h1 class="text-3xl font-bold underline">Home</h1>
+<RootLayout
+  title="Full Stack JavaScript Engineer"
+  description="Production-ready full stack JavaScript engineer experienced in international remote collaboration, scalable systems, and clean architecture."
+  pathname="/"
+>
+  <div class="space-y-20">
+    <Hero
+      name={profileData.identity.name}
+      title={profileData.identity.title}
+      strapline={profileData.identity.strapline}
+      location={profileData.identity.location}
+      relocation={profileData.identity.relocation}
+      ctas={heroCtas}
+    />
+
+    <section class="space-y-8">
+      <SectionTitle
+        eyebrow="Positioning"
+        title="Built for production teams, not toy projects"
+        intro="I work across frontend and backend with a bias toward maintainable architecture, stable delivery, and measurable product progress."
+      />
+      <div class="flex flex-wrap gap-2">
+        {
+          profileData.positioning.map((item) => (
+            <span class="brutal-chip">{item}</span>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="space-y-8">
+      <SectionTitle
+        eyebrow="Core Competencies"
+        title="Execution that scales with product complexity"
+        intro="From API design to UI delivery, these are the capabilities I bring into sprint-based teams."
+      />
+      <div class="grid gap-5 md:grid-cols-2">
+        {
+          profileData.competencies.map((competency) => (
+            <article class="brutal-frame p-5 md:p-6">
+              <h3 class="text-xl font-black uppercase leading-tight">{competency.title}</h3>
+              <p class="mt-3 text-base leading-relaxed">{competency.detail}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="space-y-8">
+      <SectionTitle
+        eyebrow="Tech At A Glance"
+        title="Modern JavaScript stack with delivery discipline"
+        intro="Hands-on with product engineering across application layers, data systems, and deployment workflows."
+      />
+      <SkillMatrix categories={profileData.skills} />
+    </section>
+  </div>
 </RootLayout>

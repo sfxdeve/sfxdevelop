@@ -1,7 +1,24 @@
 ---
 import RootLayout from "../../components/layouts/root-layout.astro";
+import SectionTitle from "../../components/site/section-title.astro";
+import ContactPanel from "../../components/site/contact-panel.astro";
+import { profileData } from "../../data/profile";
+
+const publicContacts = profileData.contacts.filter((contact) => contact.public);
 ---
 
-<RootLayout>
-	<h1 class="text-3xl font-bold underline">Contact</h1>
+<RootLayout
+  title="Contact"
+  description="Professional contact channels for recruiter outreach, role discussions, and collaboration opportunities."
+  pathname="/contact/"
+>
+  <div class="space-y-10">
+    <SectionTitle
+      as="h1"
+      eyebrow="Contact"
+      title="Recruiting for full stack JavaScript roles?"
+      intro="I am open to product engineering opportunities, including relocation-focused roles in Europe."
+    />
+    <ContactPanel contacts={publicContacts} />
+  </div>
 </RootLayout>

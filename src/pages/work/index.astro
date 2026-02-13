@@ -1,7 +1,29 @@
 ---
 import RootLayout from "../../components/layouts/root-layout.astro";
+import SectionTitle from "../../components/site/section-title.astro";
+import ExperienceCaseCard from "../../components/site/experience-case-card.astro";
+import { profileData } from "../../data/profile";
 ---
 
-<RootLayout>
-	<h1 class="text-3xl font-bold underline">Work</h1>
+<RootLayout
+  title="Work"
+  description="Experience-based case studies from full-time and freelance delivery across frontend architecture, scalable APIs, and production systems."
+  pathname="/work/"
+>
+  <div class="space-y-10">
+    <SectionTitle
+      as="h1"
+      eyebrow="Case Work"
+      title="Experience translated into delivery outcomes"
+      intro="Each case below is based on production work in remote and on-site teams. Focus areas include architecture quality, API reliability, and maintainable frontend systems."
+    />
+
+    <div class="grid gap-6 lg:grid-cols-2">
+      {
+        profileData.experience.map((experienceItem) => (
+          <ExperienceCaseCard item={experienceItem} />
+        ))
+      }
+    </div>
+  </div>
 </RootLayout>

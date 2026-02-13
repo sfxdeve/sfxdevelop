@@ -1,7 +1,104 @@
 ---
+import { existsSync } from "node:fs";
 import RootLayout from "../../components/layouts/root-layout.astro";
+import SectionTitle from "../../components/site/section-title.astro";
+import SkillMatrix from "../../components/site/skill-matrix.astro";
+import { profileData } from "../../data/profile";
+
+const resumePdfExists = existsSync(new URL("../../../public/resume.pdf", import.meta.url));
 ---
 
-<RootLayout>
-	<h1 class="text-3xl font-bold underline">Resume</h1>
+<RootLayout
+  title="Resume"
+  description="Professional summary, technical skills, and reverse-chronological experience for Shayan Fareed, Full Stack JavaScript Engineer."
+  pathname="/resume/"
+>
+  <div class="space-y-16">
+    <section class="space-y-6">
+      <SectionTitle
+        as="h1"
+        eyebrow="Resume"
+        title="Full Stack JavaScript Engineer with production delivery focus"
+      />
+      <div class="brutal-frame p-6 md:p-8">
+        <div class="space-y-4">
+          {profileData.professionalSummary.map((paragraph) => <p class="text-base leading-relaxed md:text-lg">{paragraph}</p>)}
+        </div>
+        {resumePdfExists && (
+          <a
+            href="/resume.pdf"
+            download
+            class="hover-lift mt-6 inline-flex border-2 border-ink bg-acid px-5 py-3 text-sm font-bold uppercase tracking-[0.15em] no-underline"
+          >
+            Download CV (PDF)
+          </a>
+        )}
+      </div>
+    </section>
+
+    <section class="space-y-8">
+      <SectionTitle
+        eyebrow="Experience"
+        title="Reverse chronological timeline"
+        intro="Consistent execution across remote international collaboration and on-site product teams."
+      />
+      <div class="space-y-5">
+        {
+          profileData.experience.map((item) => (
+            <article class="brutal-frame p-5 md:p-6">
+              <p class="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-ink/80">{item.period}</p>
+              <h2 class="mt-2 text-2xl font-black uppercase leading-tight">{item.role}</h2>
+              <p class="mt-1 text-sm font-bold uppercase tracking-[0.12em]">
+                {item.company} · {item.location} · {item.arrangement}
+              </p>
+              <p class="mt-4 text-base leading-relaxed">{item.scope}</p>
+              <ul class="mt-4 space-y-2">
+                {item.highlights.map((highlight) => <li class="border-l-4 border-ink pl-3 text-sm leading-relaxed">{highlight}</li>)}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="space-y-8">
+      <SectionTitle
+        eyebrow="Technical Skills"
+        title="Grouped by engineering domain"
+        intro="Practical depth across frontend, backend, data systems, and deployment workflows."
+      />
+      <SkillMatrix categories={profileData.skills} />
+    </section>
+
+    <section class="grid gap-6 lg:grid-cols-2">
+      <article class="brutal-frame p-6 md:p-7">
+        <h2 class="text-2xl font-black uppercase leading-tight">Education</h2>
+        {
+          profileData.education.map((item) => (
+            <div class="mt-5 space-y-2">
+              <p class="text-lg font-bold uppercase">{item.degree}</p>
+              <p class="text-sm font-semibold uppercase tracking-[0.12em]">{item.institution}</p>
+              <p class="text-sm">{item.location}</p>
+              <p class="font-mono text-xs font-semibold uppercase tracking-[0.16em]">{item.period}</p>
+              {item.grade && <p class="text-sm font-semibold">{item.grade}</p>}
+            </div>
+          ))
+        }
+      </article>
+
+      <article class="brutal-frame p-6 md:p-7">
+        <h2 class="text-2xl font-black uppercase leading-tight">Languages</h2>
+        <ul class="mt-5 space-y-3">
+          {
+            profileData.languages.map((item) => (
+              <li class="flex items-center justify-between gap-3 border-2 border-ink p-3">
+                <span class="font-bold uppercase">{item.language}</span>
+                <span class="font-mono text-xs uppercase tracking-[0.14em]">{item.proficiency}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </article>
+    </section>
+  </div>
 </RootLayout>

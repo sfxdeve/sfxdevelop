@@ -1,1 +1,115 @@
 @import "tailwindcss";
+
+@theme {
+  --color-paper: #f5f3ee;
+  --color-ink: #111111;
+  --color-acid: #d7ff3f;
+  --color-concrete: #b9b4a8;
+  --color-alert: #ff5a36;
+}
+
+:root {
+  --font-display: "Space Grotesk", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", "Menlo", monospace;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-display);
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+  background-image:
+    linear-gradient(to right, rgb(17 17 17 / 8%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(17 17 17 / 8%) 1px, transparent 1px),
+    radial-gradient(circle at 0 0, rgb(17 17 17 / 12%) 1px, transparent 1px);
+  background-size: 36px 36px, 36px 36px, 8px 8px;
+  background-position: -1px -1px, -1px -1px, 0 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  color: var(--color-ink);
+  background: var(--color-acid);
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: 3px solid var(--color-acid);
+  outline-offset: 3px;
+}
+
+.brutal-frame {
+  border: 3px solid var(--color-ink);
+  background: var(--color-paper);
+  box-shadow: 8px 8px 0 var(--color-ink);
+}
+
+.brutal-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid var(--color-ink);
+  padding: 0.35rem 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--color-paper);
+}
+
+.section-wrap {
+  width: min(100%, 80rem);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+.hover-lift {
+  transition: transform 200ms ease;
+}
+
+.hover-lift:hover {
+  transform: translate(-2px, -2px);
+}
+
+.animate-reveal {
+  animation: reveal-up 450ms ease-out both;
+}
+
+@media (min-width: 640px) {
+  .section-wrap {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-wrap {
+    padding-inline: 2.5rem;
+  }
+}

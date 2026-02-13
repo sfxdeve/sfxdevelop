@@ -1,19 +1,108 @@
 ---
 import "../../styles/global.css";
+import { profileData } from "../../data/profile";
+
+interface Props {
+  title?: string;
+  description?: string;
+  pathname?: string;
+}
+
+const { title, description, pathname = "/" } = Astro.props;
+
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/work/", label: "Work" },
+  { href: "/resume/", label: "Resume" },
+  { href: "/contact/", label: "Contact" },
+];
+
+const normalizePath = (value: string) => {
+  if (value === "/") {
+    return "/";
+  }
+
+  const normalized = value.replace(/\/+$/, "");
+  return normalized.length === 0 ? "/" : normalized;
+};
+
+const normalizedPathname = normalizePath(pathname);
+const siteMeta = profileData.siteMeta;
+const resolvedTitle = title ? `${title} | ${siteMeta.siteName}` : siteMeta.defaultTitle;
+const resolvedDescription = description ?? siteMeta.defaultDescription;
+const baseUrl =
+  Astro.site ??
+  (import.meta.env.PUBLIC_SITE_URL
+    ? new URL(import.meta.env.PUBLIC_SITE_URL)
+    : undefined);
+const canonicalUrl = baseUrl
+  ? new URL(pathname === "/" ? "/" : `${normalizePath(pathname)}/`, baseUrl).toString()
+  : undefined;
+const nowYear = new Date().getFullYear();
 ---
 
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <title>SFX Develops</title>
-        <meta name="description" content="SFX Develops" />
-        <meta name="generator" content={Astro.generator} />
-    </head>
-    <body>
-        <main>
-            <slot />
-        </main>
-    </body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{resolvedTitle}</title>
+    <meta name="description" content={resolvedDescription} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={resolvedTitle} />
+    <meta property="og:description" content={resolvedDescription} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    <meta property="og:site_name" content={siteMeta.siteName} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={resolvedTitle} />
+    <meta name="twitter:description" content={resolvedDescription} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="border-b-4 border-ink bg-paper">
+      <div class="section-wrap flex flex-col gap-5 py-5 md:flex-row md:items-end md:justify-between">
+        <a href="/" class="hover-lift inline-flex w-fit no-underline">
+          <span class="brutal-frame px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] md:text-sm">
+            {profileData.identity.name}
+          </span>
+        </a>
+        <nav aria-label="Primary" class="flex flex-wrap gap-2">
+          {
+            navItems.map((item) => {
+              const isActive = normalizePath(item.href) === normalizedPathname;
+              return (
+                <a
+                  href={item.href}
+                  class={`hover-lift border-2 border-ink px-3 py-2 text-xs font-bold uppercase tracking-[0.14em] no-underline md:text-sm ${
+                    isActive ? "bg-acid" : "bg-paper"
+                  }`}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {item.label}
+                </a>
+              );
+            })
+          }
+        </nav>
+      </div>
+    </header>
+    <main class="section-wrap pb-20 pt-10 md:pt-14">
+      <slot />
+    </main>
+    <footer class="border-t-4 border-ink bg-ink text-paper">
+      <div class="section-wrap flex flex-col gap-3 py-6 md:flex-row md:items-center md:justify-between">
+        <p class="font-mono text-xs uppercase tracking-[0.16em]">© {nowYear} {profileData.identity.name}</p>
+        <p class="font-mono text-xs uppercase tracking-[0.12em] text-paper/90">
+          Full Stack JavaScript Engineer · Recruiter Ready Portfolio
+        </p>
+      </div>
+    </footer>
+  </body>
 </html>
