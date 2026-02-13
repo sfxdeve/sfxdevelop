@@ -1,7 +1,60 @@
 ---
+import Hero from "../components/blocks/hero.astro";
+import BrutalistCard from "../components/blocks/brutalist-card.astro";
+import Divider from "../components/ui/divider.astro";
 import RootLayout from "../components/layouts/root-layout.astro";
+import {
+  coreCompetencies,
+  featuredExperience,
+  positioningSummary,
+  profile,
+} from "../data/portfolio";
 ---
 
-<RootLayout>
-	<h1 class="text-3xl font-bold underline">Home</h1>
+<RootLayout
+  title="Home"
+  description="Production-focused Full Stack JavaScript Developer portfolio for Shayan Fareed."
+>
+  <div class="page-stack">
+    <Hero profile={profile} competencies={coreCompetencies} />
+
+    <section class="space-y-6">
+      <Divider label="Featured Experience" />
+      <div class="grid gap-4 lg:grid-cols-2">
+        {featuredExperience.map((item, index) => (
+          <BrutalistCard accent={index === 0 ? "acid" : "safety"}>
+            <p class="font-mono text-xs uppercase tracking-[0.16em] text-paper-200">
+              {item.startDate} - {item.endDate}
+            </p>
+            <h2 class="mt-2 font-display text-4xl uppercase leading-none tracking-[0.06em] text-paper-50">
+              {item.role}
+            </h2>
+            <p class="mb-4 mt-1 font-mono text-xs uppercase tracking-[0.16em] text-acid-100">
+              {item.company} | {item.location}
+            </p>
+            <ul class="list-outside space-y-2 pl-5 marker:text-acid-300">
+              {item.achievements.slice(0, 3).map((achievement) => <li>{achievement}</li>)}
+            </ul>
+          </BrutalistCard>
+        ))}
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <Divider label="Professional Positioning" />
+      <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {positioningSummary.map((point, index) => (
+          <article
+            class={`border-4 p-4 font-mono text-xs uppercase tracking-[0.12em] ${
+              index % 2 === 0
+                ? "border-acid-300 bg-ink-900 text-paper-50"
+                : "border-paper-50 bg-ink-950 text-paper-100"
+            }`}
+          >
+            {point}
+          </article>
+        ))}
+      </div>
+    </section>
+  </div>
 </RootLayout>

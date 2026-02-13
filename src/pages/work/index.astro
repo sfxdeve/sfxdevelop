@@ -1,7 +1,23 @@
 ---
+import ExperienceTimeline from "../../components/blocks/experience-timeline.astro";
+import SectionTitle from "../../components/blocks/section-title.astro";
+import Divider from "../../components/ui/divider.astro";
 import RootLayout from "../../components/layouts/root-layout.astro";
+import { experience } from "../../data/portfolio";
 ---
 
-<RootLayout>
-	<h1 class="text-3xl font-bold underline">Work</h1>
+<RootLayout
+  title="Work"
+  description="Experience timeline for Shayan Fareed across production full-stack roles and freelance delivery."
+>
+  <div class="page-stack">
+    <SectionTitle
+      kicker="Experience-first"
+      title="Work History"
+      description="Production roles, remote collaboration, and full-stack delivery across international teams and freelance clients."
+    />
+
+    <Divider label="Timeline" />
+    <ExperienceTimeline items={experience} />
+  </div>
 </RootLayout>

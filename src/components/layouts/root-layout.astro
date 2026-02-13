@@ -1,19 +1,84 @@
 ---
 import "../../styles/global.css";
+import { navigation, siteMeta } from "../../data/portfolio";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+}
+
+const { title, description, canonical } = Astro.props;
+
+const normalizePath = (value: string) => {
+  if (value === "/") return "/";
+  return value.endsWith("/") ? value : `${value}/`;
+};
+
+const pathname = normalizePath(Astro.url.pathname);
+const pageTitle = title ? `${title} | ${siteMeta.siteName}` : siteMeta.defaultTitle;
+const pageDescription = description ?? siteMeta.defaultDescription;
+const canonicalUrl = canonical ?? (Astro.site ? new URL(pathname, Astro.site).toString() : undefined);
+const year = new Date().getFullYear();
 ---
 
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <title>SFX Develops</title>
-        <meta name="description" content="SFX Develops" />
-        <meta name="generator" content={Astro.generator} />
-    </head>
-    <body>
-        <main>
-            <slot />
-        </main>
-    </body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <header class="border-b-4 border-paper-50 bg-ink-950">
+      <div class="shell flex flex-wrap items-center justify-between gap-4 py-4">
+        <a href="/" class="font-display text-4xl uppercase leading-none tracking-[0.08em] text-paper-50">
+          SFX//DEV
+        </a>
+
+        <nav aria-label="Primary navigation">
+          <ul class="flex flex-wrap gap-2">
+            {navigation.map((item) => {
+              const itemPath = normalizePath(item.href);
+              const active = itemPath === "/" ? pathname === "/" : pathname.startsWith(itemPath);
+
+              return (
+                <li>
+                  <a
+                    href={item.href}
+                    aria-current={active ? "page" : undefined}
+                    class={`inline-flex border-2 px-3 py-2 font-mono text-[0.68rem] uppercase tracking-[0.14em] transition focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-acid-300 ${
+                      active
+                        ? "border-acid-300 bg-acid-300 text-ink-950"
+                        : "border-paper-50 text-paper-50 hover:bg-paper-50 hover:text-ink-950"
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="shell py-8 sm:py-12">
+      <slot />
+    </main>
+
+    <footer class="border-t-4 border-paper-50 bg-ink-950">
+      <div class="shell flex flex-wrap items-center justify-between gap-3 py-4">
+        <p class="font-mono text-xs uppercase tracking-[0.14em] text-paper-200">
+          {year} {siteMeta.siteName}
+        </p>
+        <p class="font-mono text-xs uppercase tracking-[0.14em] text-acid-100">Built with Astro + Tailwind</p>
+      </div>
+    </footer>
+  </body>
 </html>

@@ -1,7 +1,72 @@
 ---
+import BrutalistCard from "../../components/blocks/brutalist-card.astro";
+import SectionTitle from "../../components/blocks/section-title.astro";
+import SkillsMatrix from "../../components/blocks/skills-matrix.astro";
+import Tag from "../../components/ui/tag.astro";
+import Divider from "../../components/ui/divider.astro";
 import RootLayout from "../../components/layouts/root-layout.astro";
+import {
+  education,
+  languages,
+  positioningSummary,
+  profile,
+  skillCategories,
+} from "../../data/portfolio";
 ---
 
-<RootLayout>
-	<h1 class="text-3xl font-bold underline">Resume</h1>
+<RootLayout
+  title="Resume"
+  description="Technical skills, education, and professional positioning for Shayan Fareed."
+>
+  <div class="page-stack">
+    <SectionTitle
+      kicker="Resume"
+      title="Technical Profile"
+      description="Structured skills, education, and communication strengths for high-ownership software roles."
+    />
+
+    <section class="space-y-4">
+      <Divider label="Skills" />
+      <SkillsMatrix categories={skillCategories} />
+    </section>
+
+    <section class="grid gap-4 lg:grid-cols-3">
+      <BrutalistCard accent="safety" className="space-y-4">
+        <h3 class="font-display text-4xl uppercase leading-none tracking-[0.06em] text-paper-50">Education</h3>
+        {education.map((item) => (
+          <div class="space-y-2">
+            <p class="font-semibold text-paper-50">{item.degree}</p>
+            <p class="text-paper-100">{item.institution}</p>
+            <p class="font-mono text-xs uppercase tracking-[0.14em] text-paper-300">{item.location}</p>
+            <div class="flex flex-wrap gap-2">
+              <Tag text={item.expected} className="border-acid-300 text-acid-100" />
+              <Tag text={item.gpa} className="border-paper-300 text-paper-100" />
+            </div>
+          </div>
+        ))}
+      </BrutalistCard>
+
+      <BrutalistCard className="space-y-4">
+        <h3 class="font-display text-4xl uppercase leading-none tracking-[0.06em] text-paper-50">Languages</h3>
+        <ul class="space-y-2">
+          {languages.map((item) => (
+            <li class="flex items-center justify-between gap-3 border-b border-paper-400 pb-2 text-paper-50">
+              <span>{item.language}</span>
+              <span class="font-mono text-xs uppercase tracking-[0.14em] text-acid-100">{item.level}</span>
+            </li>
+          ))}
+        </ul>
+      </BrutalistCard>
+
+      <BrutalistCard accent="paper" className="space-y-4">
+        <h3 class="font-display text-4xl uppercase leading-none tracking-[0.06em] text-paper-50">Positioning</h3>
+        <p class="font-mono text-xs uppercase tracking-[0.15em] text-paper-200">
+          {profile.name} | {profile.title}
+        </p>
+        <ul class="list-outside space-y-2 pl-5 marker:text-safety-500 text-paper-100">
+          {positioningSummary.map((point) => <li>{point}</li>)}
+        </ul>
+      </BrutalistCard>
+    </section>
+  </div>
 </RootLayout>

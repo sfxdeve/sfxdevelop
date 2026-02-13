@@ -1,0 +1,38 @@
+---
+interface Props {
+  href: string;
+  variant?: "solid" | "outline" | "ghost";
+  className?: string;
+  external?: boolean;
+  ariaLabel?: string;
+}
+
+const {
+  href,
+  variant = "solid",
+  className = "",
+  external,
+  ariaLabel,
+} = Astro.props;
+
+const isHttp = /^https?:\/\//.test(href);
+const isExternal = external ?? isHttp;
+
+const variantClasses = {
+  solid:
+    "border-acid-300 bg-acid-300 text-ink-950 hover:bg-paper-50 hover:text-ink-950",
+  outline:
+    "border-paper-50 bg-transparent text-paper-50 hover:bg-paper-50 hover:text-ink-950",
+  ghost: "border-transparent bg-transparent text-paper-50 hover:bg-ink-800",
+};
+---
+
+<a
+  href={href}
+  aria-label={ariaLabel}
+  class={`inline-flex items-center justify-center border-4 px-5 py-2 text-xs font-bold uppercase tracking-[0.14em] transition duration-200 ease-out focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-acid-300 ${variantClasses[variant]} ${className}`}
+  target={isExternal ? "_blank" : undefined}
+  rel={isExternal ? "noreferrer" : undefined}
+>
+  <slot />
+</a>

@@ -1,0 +1,31 @@
+---
+import type { ExperienceItem } from "../../types/portfolio";
+import BrutalistCard from "./brutalist-card.astro";
+import Tag from "../ui/tag.astro";
+
+interface Props {
+  items: ExperienceItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="space-y-6">
+  {items.map((item, index) => (
+    <li class="grid gap-4 lg:grid-cols-[220px_1fr]">
+      <div class="space-y-2 border-l-4 border-acid-300 pl-4 lg:border-l-0 lg:border-r-4 lg:pr-5 lg:pl-0">
+        <p class="font-mono text-xs uppercase tracking-[0.15em] text-paper-200">
+          {item.startDate} - {item.endDate}
+        </p>
+        <Tag text={item.location} className="border-paper-400 text-paper-200" />
+      </div>
+      <BrutalistCard accent={index % 2 === 0 ? "acid" : "safety"}>
+        <h3 class="font-display text-4xl uppercase tracking-[0.05em] text-paper-50">{item.role}</h3>
+        <p class="mb-4 font-mono text-xs uppercase tracking-[0.14em] text-acid-100">{item.company}</p>
+        <ul class="list-outside space-y-2 pl-5 text-paper-100 marker:text-acid-300">
+          {item.achievements.map((achievement) => <li>{achievement}</li>)}
+        </ul>
+      </BrutalistCard>
+    </li>
+  ))}
+</ol>

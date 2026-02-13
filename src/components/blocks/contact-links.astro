@@ -1,0 +1,108 @@
+---
+import type { PortfolioContact } from "../../types/portfolio";
+import ButtonLink from "../ui/button-link.astro";
+import Tag from "../ui/tag.astro";
+
+interface Props {
+  contact: PortfolioContact;
+  relocationNote: string;
+}
+
+const { contact, relocationNote } = Astro.props;
+---
+
+<section class="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+  <article class="brutal-card space-y-5">
+    <h2 class="font-display text-5xl uppercase leading-none tracking-[0.06em] text-paper-50 sm:text-6xl">
+      Let&apos;s build something that ships.
+    </h2>
+    <p class="max-w-2xl text-paper-100 sm:text-lg">
+      Reach out directly for full-time roles, long-term contracts, and high-ownership product work.
+    </p>
+
+    <div class="flex flex-wrap gap-3">
+      <ButtonLink href={`mailto:${contact.email}`}>Email me</ButtonLink>
+      <ButtonLink href={`tel:${contact.phone}`} variant="outline">Call</ButtonLink>
+      <ButtonLink href={contact.linkedin} variant="outline" external>
+        LinkedIn
+      </ButtonLink>
+      <ButtonLink href={contact.github} variant="outline" external>
+        GitHub
+      </ButtonLink>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2">
+      <Tag text={relocationNote} className="border-safety-500 text-safety-300" />
+      <button
+        type="button"
+        class="inline-flex items-center border-2 border-paper-50 px-3 py-1 font-mono text-xs uppercase tracking-[0.14em] text-paper-50 transition hover:bg-paper-50 hover:text-ink-950 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-acid-300"
+        data-copy-email
+        data-email={contact.email}
+      >
+        Copy email
+      </button>
+      <span class="font-mono text-xs uppercase tracking-[0.14em] text-acid-100" data-copy-status aria-live="polite"></span>
+    </div>
+  </article>
+
+  <aside class="border-4 border-paper-50 bg-ink-900 p-5">
+    <p class="mb-3 font-mono text-xs uppercase tracking-[0.16em] text-paper-300">Direct contact</p>
+    <dl class="space-y-4">
+      <div>
+        <dt class="font-mono text-xs uppercase tracking-[0.14em] text-paper-300">Email</dt>
+        <dd class="text-paper-50">{contact.email}</dd>
+      </div>
+      <div>
+        <dt class="font-mono text-xs uppercase tracking-[0.14em] text-paper-300">Phone</dt>
+        <dd class="text-paper-50">{contact.phone}</dd>
+      </div>
+      <div>
+        <dt class="font-mono text-xs uppercase tracking-[0.14em] text-paper-300">LinkedIn</dt>
+        <dd>
+          <a class="underline decoration-acid-300 underline-offset-4" href={contact.linkedin} target="_blank" rel="noreferrer">
+            {contact.linkedin.replace("https://", "")}
+          </a>
+        </dd>
+      </div>
+      <div>
+        <dt class="font-mono text-xs uppercase tracking-[0.14em] text-paper-300">GitHub</dt>
+        <dd>
+          <a class="underline decoration-acid-300 underline-offset-4" href={contact.github} target="_blank" rel="noreferrer">
+            {contact.github.replace("https://", "")}
+          </a>
+        </dd>
+      </div>
+    </dl>
+  </aside>
+</section>
+
+<script>
+  const bindCopyEmail = () => {
+    const button = document.querySelector<HTMLButtonElement>("[data-copy-email]");
+    const status = document.querySelector<HTMLElement>("[data-copy-status]");
+
+    if (!button || !status) return;
+
+    button.addEventListener("click", async () => {
+      const email = button.dataset.email;
+      if (!email) return;
+
+      try {
+        await navigator.clipboard.writeText(email);
+        status.textContent = "Email copied";
+      } catch {
+        status.textContent = "Clipboard unavailable";
+      }
+
+      window.setTimeout(() => {
+        status.textContent = "";
+      }, 1500);
+    });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bindCopyEmail, { once: true });
+  } else {
+    bindCopyEmail();
+  }
+</script>

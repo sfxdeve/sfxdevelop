@@ -1,0 +1,19 @@
+---
+interface Props {
+  className?: string;
+  accent?: "acid" | "safety" | "paper";
+}
+
+const { className = "", accent = "acid" } = Astro.props;
+
+const accentClass = {
+  acid: "bg-acid-300",
+  safety: "bg-safety-500",
+  paper: "bg-paper-50",
+};
+---
+
+<article class={`brutal-card ${className}`}>
+  <span class={`mb-5 block h-2 w-16 ${accentClass[accent]}`}></span>
+  <slot />
+</article>

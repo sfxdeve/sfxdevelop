@@ -1,7 +1,21 @@
 ---
+import ContactLinks from "../../components/blocks/contact-links.astro";
+import SectionTitle from "../../components/blocks/section-title.astro";
 import RootLayout from "../../components/layouts/root-layout.astro";
+import { profile } from "../../data/portfolio";
 ---
 
-<RootLayout>
-	<h1 class="text-3xl font-bold underline">Contact</h1>
+<RootLayout
+  title="Contact"
+  description="Direct contact details for Shayan Fareed including email, phone, LinkedIn, and GitHub."
+>
+  <div class="page-stack">
+    <SectionTitle
+      kicker="Direct Contact"
+      title="Open for collaboration"
+      description="For product engineering roles, freelance builds, and long-term contracts, reach out directly through the channels below."
+    />
+
+    <ContactLinks contact={profile.contact} relocationNote={profile.relocationNote} />
+  </div>
 </RootLayout>

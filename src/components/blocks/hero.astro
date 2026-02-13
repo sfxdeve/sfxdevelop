@@ -1,0 +1,41 @@
+---
+import type { PortfolioProfile } from "../../types/portfolio";
+import ButtonLink from "../ui/button-link.astro";
+import Tag from "../ui/tag.astro";
+
+interface Props {
+  profile: PortfolioProfile;
+  competencies: string[];
+}
+
+const { profile, competencies } = Astro.props;
+---
+
+<section class="grid gap-8 border-4 border-paper-50 bg-ink-900 p-6 md:grid-cols-[1.2fr_0.8fr] md:p-8">
+  <div class="space-y-6">
+    <p class="font-mono text-xs uppercase tracking-[0.2em] text-acid-200">Available for impact-first teams</p>
+    <h1 class="font-display text-7xl uppercase leading-[0.85] tracking-[0.06em] text-paper-50 sm:text-8xl lg:text-9xl">
+      {profile.name}
+    </h1>
+    <div class="flex flex-wrap items-center gap-2 text-sm uppercase tracking-[0.1em] text-paper-200">
+      <Tag text={profile.title} className="border-acid-300 text-acid-100" />
+      <Tag text={profile.location} />
+    </div>
+    <div class="space-y-3 text-base text-paper-100 sm:text-lg">
+      {profile.summary.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+    <p class="font-mono text-sm uppercase tracking-[0.16em] text-safety-300">{profile.relocationNote}</p>
+    <div class="flex flex-wrap gap-3">
+      <ButtonLink href="/work/">See work</ButtonLink>
+      <ButtonLink href="/resume/" variant="outline">Open resume</ButtonLink>
+      <ButtonLink href="/contact/" variant="outline">Contact</ButtonLink>
+    </div>
+  </div>
+
+  <aside class="border-4 border-paper-50 bg-ink-950 p-5">
+    <p class="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-paper-200">Core competencies</p>
+    <div class="flex flex-wrap gap-2">
+      {competencies.map((item) => <Tag text={item} className="border-paper-300 text-paper-100" />)}
+    </div>
+  </aside>
+</section>
