@@ -25,36 +25,49 @@ import { cn } from "../../lib/utils";
 			<ul class="space-y-4 container mx-auto">
 				{
 					experience.map((item, index) => (
-						<li class="space-y-6 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6">
-							<div
-								class={cn(
-									"h-2 w-16 bg-acid-300",
-									index % 2 === 0 && "bg-safety-500",
-								)}
-							/>
-							<article class="space-y-4">
-								<h3 class="font-display uppercase leading-none tracking-wider text-3xl text-paper-50">
-									{item.role}
-								</h3>
-								<p
-									class={cn(
-										"font-mono uppercase tracking-widest text-xs text-acid-300",
-										index % 2 === 0 && "text-safety-500",
-									)}
-								>
-									{item.company}
+						<li class="grid gap-4 lg:grid-cols-[14rem_1fr]">
+							<div class="space-y-2 border-l-4 border-acid-300 pl-4 lg:border-l-0 lg:border-r-4 lg:pl-0">
+								<p class="font-mono uppercase tracking-widest text-xs">
+									{item.startDate} - {item.endDate}
 								</p>
-								<ul
+								<span class="border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-[0.5rem] text-paper-100">
+									{item.location}
+								</span>
+							</div>
+							<article class="space-y-6 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6">
+								<div
 									class={cn(
-										"space-y-2 pl-4 text-sm list-disc marker:text-acid-300",
-										index % 2 === 0 &&
-											"marker:text-safety-500",
+										"h-2 w-16 bg-acid-300",
+										index % 2 === 0 && "bg-safety-500",
 									)}
-								>
-									{item.achievements.map((point) => (
-										<li>{point}</li>
-									))}
-								</ul>
+								/>
+								<div class="space-y-4">
+									<div class="space-y-1">
+										<h3 class="font-display uppercase leading-none tracking-wider text-3xl text-paper-50">
+											{item.role}
+										</h3>
+										<p
+											class={cn(
+												"font-mono uppercase tracking-widest text-xs text-acid-300",
+												index % 2 === 0 &&
+													"text-safety-500",
+											)}
+										>
+											{item.company}
+										</p>
+									</div>
+									<ul
+										class={cn(
+											"space-y-2 pl-4 text-sm list-disc marker:text-acid-300",
+											index % 2 === 0 &&
+												"marker:text-safety-500",
+										)}
+									>
+										{item.achievements.map((point) => (
+											<li>{point}</li>
+										))}
+									</ul>
+								</div>
 							</article>
 						</li>
 					))
