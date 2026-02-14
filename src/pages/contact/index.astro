@@ -20,41 +20,117 @@ import { profile } from "../../data/portfolio";
 				class="container mx-auto grid gap-6 lg:grid-cols-[1.15fr_0.85fr]"
 			>
 				<article
-					class="space-y-5 border-4 p-4 transition duration-300 ease-out hover:-translate-1 sm:p-6"
+					class="space-y-5 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
 				>
-					<h2
+					<h3
 						class="font-display uppercase leading-none tracking-wider text-3xl sm:text-5xl"
 					>
 						Let&apos;s build something that ships
-					</h2>
+					</h3>
 					<p class="max-w-2xl text-base text-paper-100 sm:text-lg">
 						Reach out directly for full time roles, long term
 						contracts, and high ownership product work.
 					</p>
-					<div class="flex flex-wrap gap-3">
-						<ButtonLink
-							href={`mailto:${profile.contact.email}`}
-							variant="solid">Email Me</ButtonLink
+					<ul class="flex flex-wrap gap-3">
+						<li>
+							<ButtonLink
+								href={`mailto:${profile.contact.email}`}
+								variant="solid">Email Me</ButtonLink
+							>
+						</li>
+						<li>
+							<ButtonLink
+								href={`tel:${profile.contact.phone}`}
+								variant="outline">Call</ButtonLink
+							>
+						</li>
+						<li>
+							<ButtonLink
+								href={profile.contact.linkedIn}
+								isExternal
+								variant="outline"
+							>
+								LinkedIn
+							</ButtonLink>
+						</li>
+						<li>
+							<ButtonLink
+								href={profile.contact.github}
+								isExternal
+								variant="outline"
+							>
+								GitHub
+							</ButtonLink>
+						</li>
+					</ul>
+				</article>
+				<article
+					class="space-y-5 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
+				>
+					<h3
+						class="font-mono uppercase tracking-widest text-xs text-paper-300"
+					>
+						Direct Contact
+					</h3>
+					<dl>
+						<dt
+							class="font-mono uppercase tracking-wider text-xs text-paper-300"
 						>
-						<ButtonLink
-							href={`tel:${profile.contact.phone}`}
-							variant="outline">Call</ButtonLink
+							Email
+						</dt>
+						<dd class="mb-3">
+							<a
+								href={`mailto:${profile.contact.email}`}
+								class="underline underline-offset-4 decoration-acid-300 text-paper-50"
+							>
+								{profile.contact.email}
+							</a>
+						</dd>
+						<dt
+							class="font-mono uppercase tracking-wider text-xs text-paper-300"
 						>
-						<ButtonLink
-							href={profile.contact.linkedin}
-							isExternal
-							variant="outline"
+							Phone
+						</dt>
+						<dd class="mb-3">
+							<a
+								href={`tel:${profile.contact.phone}`}
+								class="underline underline-offset-4 decoration-acid-300 text-paper-50"
+							>
+								{profile.contact.phone}
+							</a>
+						</dd>
+						<dt
+							class="font-mono uppercase tracking-wider text-xs text-paper-300"
 						>
 							LinkedIn
-						</ButtonLink>
-						<ButtonLink
-							href={profile.contact.github}
-							isExternal
-							variant="outline"
+						</dt>
+						<dd class="mb-3">
+							<a
+								href={profile.contact.linkedIn}
+								class="underline underline-offset-4 decoration-acid-300 text-paper-50"
+							>
+								{
+									profile.contact.linkedIn.replace(
+										"https://",
+										"",
+									)
+								}
+							</a>
+						</dd>
+						<dt
+							class="font-mono uppercase tracking-wider text-xs text-paper-300"
 						>
 							GitHub
-						</ButtonLink>
-					</div>
+						</dt>
+						<dd class="mb-3">
+							<a
+								href={profile.contact.github}
+								class="underline underline-offset-4 decoration-acid-300 text-paper-50"
+							>
+								{profile.contact.github.replace("https://", "")}
+							</a>
+						</dd>
+					</dl>
 				</article>
 			</div>
 		</section>

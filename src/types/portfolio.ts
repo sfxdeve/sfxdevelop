@@ -1,7 +1,7 @@
 export interface PortfolioContact {
   email: string;
   phone: string;
-  linkedin: string;
+  linkedIn: string;
   github: string;
 }
 

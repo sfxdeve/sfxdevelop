@@ -18,7 +18,7 @@ export const profile: PortfolioProfile = {
   contact: {
     email: "sfx.deve@gmail.com",
     phone: "+923082228141",
-    linkedin: "https://linkedin.com/in/shayanfareed",
+    linkedIn: "https://linkedin.com/in/shayanfareed",
     github: "https://github.com/sfxdeve",
   },
 };
