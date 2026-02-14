@@ -28,84 +28,97 @@ import { cn } from "../../lib/utils";
 			<ul
 				class="container mx-auto grid gap-4 md:grid-cols-2 xl:grid-cols-3"
 			>
-				<li
-					class="space-y-6 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
-				>
-					<div class={"h-2 w-16 bg-safety-500"}></div>
-					<article class="space-y-4">
-						<h3
-							class="font-display uppercase leading-none tracking-wider text-3xl text-paper-50"
-						>
-							Positioning
-						</h3>
-						<p
-							class="font-mono uppercase tracking-widest text-xs text-paper-200"
-						>
-							{profile.name} | {profile.title}
-						</p>
-						<ul
-							class="space-y-2 pl-4 text-sm list-disc marker:text-safety-500"
-						>
-							{
-								positioningSummary.map((point) => (
-									<li>{point}</li>
-								))
-							}
-						</ul>
+				<li>
+					<article
+						class="space-y-6 h-full border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
+					>
+						<div class={"h-2 w-16 bg-safety-500"}></div>
+						<div class="space-y-4">
+							<div>
+								<h3
+									class="font-display uppercase leading-none tracking-wider text-3xl text-paper-50"
+								>
+									Positioning
+								</h3>
+								<p
+									class="font-mono uppercase tracking-widest text-xs text-paper-200"
+								>
+									{profile.name} | {profile.title}
+								</p>
+							</div>
+							<ul
+								class="space-y-2 pl-4 text-sm list-disc marker:text-safety-500"
+							>
+								{
+									positioningSummary.map((point) => (
+										<li>{point}</li>
+									))
+								}
+							</ul>
+						</div>
 					</article>
 				</li>
 				{
 					skillCategories.map((category, index) => (
-						<li class="space-y-6 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6">
-							<div
-								class={cn(
-									"h-2 w-16 bg-safety-500",
-									index % 2 === 0 && "bg-acid-300",
-								)}
-							/>
-							<article class="space-y-4">
-								<h3 class="font-display uppercase leading-none tracking-wider text-3xl text-paper-50">
-									{category.name}
-								</h3>
-								<ul class="flex flex-wrap gap-2">
-									{category.items.map((skill) => (
-										<li class="border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100">
-											{skill}
-										</li>
-									))}
-								</ul>
+						<li>
+							<article class="space-y-6 h-full border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6">
+								<div
+									class={cn(
+										"h-2 w-16 bg-acid-300",
+										index % 2 === 0 && "bg-safety-500",
+									)}
+								/>
+								<div class="space-y-4">
+									<div>
+										<h3 class="font-display uppercase leading-none tracking-wider text-3xl text-paper-50">
+											{category.name}
+										</h3>
+									</div>
+									<ul class="flex flex-wrap gap-2">
+										{category.items.map((skill) => (
+											<li class="border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100">
+												{skill}
+											</li>
+										))}
+									</ul>
+								</div>
 							</article>
 						</li>
 					))
 				}
-				<li
-					class="space-y-6 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
-				>
-					<div
-						class={cn(
-							"h-2 w-16 bg-safety-500",
-							skillCategories.length % 2 === 0 && "bg-acid-300",
-						)}
+				<li>
+					<article
+						class="space-y-6 h-full border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
 					>
-					</div>
-					<article class="space-y-4">
-						<h3
-							class="font-display uppercase leading-none tracking-wider text-3xl text-paper-50"
+						<div
+							class={cn(
+								"h-2 w-16 bg-safety-500",
+								skillCategories.length % 2 === 0 &&
+									"bg-acid-300",
+							)}
 						>
-							Languages
-						</h3>
-						<ul class="space-y-2">
-							{
-								languages.map((language) => (
-									<li class="border-b border-paper-300 flex items-start justify-between">
-										<span>{language.name}</span>
-										<span class="font-mono uppercase tracking-widest text-xs text-acid-100">
-											{language.level}
-										</span>
-									</li>
-								))
-							}
-						</ul>
+						</div>
+						<div class="space-y-4">
+							<div>
+								<h3
+									class="font-display uppercase leading-none tracking-wider text-3xl text-paper-50"
+								>
+									Languages
+								</h3>
+							</div>
+							<ul class="space-y-2">
+								{
+									languages.map((language) => (
+										<li class="border-b border-paper-300 flex items-start justify-between">
+											<span>{language.name}</span>
+											<span class="font-mono uppercase tracking-widest text-xs text-acid-100">
+												{language.level}
+											</span>
+										</li>
+									))
+								}
+							</ul>
+						</div>
 					</article>
 				</li>
 			</ul>
