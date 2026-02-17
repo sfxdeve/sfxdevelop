@@ -38,7 +38,7 @@ export const experience: ExperienceItem[] = [
   {
     role: "Software Engineer",
     company: "Aqua Digital Rising",
-    location: "United Kingdom (Remote)",
+    location: "London, UK (Remote)",
     startDate: "Jan 2025",
     endDate: "Present",
     achievements: [
