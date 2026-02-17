@@ -31,3 +31,38 @@
     linear-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px);
   background-size: 30px 30px;
 }
+
+::view-transition-group(root) {
+  animation-duration: 220ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+::view-transition-old(root) {
+  animation-name: sfxFadeOut;
+  animation-duration: 180ms;
+  animation-timing-function: ease-out;
+}
+
+::view-transition-new(root) {
+  animation-name: sfxFadeIn;
+  animation-duration: 220ms;
+  animation-timing-function: ease-out;
+}
+
+@keyframes sfxFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes sfxFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

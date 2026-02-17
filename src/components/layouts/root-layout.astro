@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import { cn } from "../../lib/utils";
 import { normalizePath } from "../../lib/path";
 import "../../styles/global.css";
@@ -35,6 +36,7 @@ const navItems = [
                 : "Portfolio of Shayan Fareed, Full Stack JavaScript Developer building scalable web applications."}
         />
         <meta name="generator" content={Astro.generator} />
+        <ClientRouter fallback="animate" />
     </head>
     <body class="min-h-dvh font-body text-paper-50 bg-ink-950 bg-grid">
         <header class="border-b-4 border-paper-50 bg-ink-950">
