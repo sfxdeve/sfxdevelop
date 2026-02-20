@@ -8,24 +8,109 @@ interface Props {
 const { kicker, title, description } = Astro.props;
 ---
 
-<section class="p-4 sm:py-12">
+<section class="p-4 sm:py-12" data-section-header>
     <div class="space-y-3 container mx-auto">
         {
             kicker && (
-                <p class="font-mono uppercase tracking-widest text-xs text-acid-300">
+                <p
+                    class="font-mono uppercase tracking-widest text-xs text-acid-300"
+                    data-section-kicker
+                >
                     {kicker}
                 </p>
             )
         }
-        <h2 class="font-display uppercase tracking-wider text-3xl sm:text-5xl">
+        <h2
+            class="font-display uppercase tracking-wider text-3xl sm:text-5xl"
+            data-section-heading
+        >
             {title}
         </h2>
         {
             description && (
-                <p class="max-w-3xl text-base text-paper-200 sm:text-lg">
+                <p
+                    class="max-w-3xl text-base text-paper-200 sm:text-lg"
+                    data-section-description
+                >
                     {description}
                 </p>
             )
         }
     </div>
 </section>
+<script>
+    import { gsap } from "gsap";
+    import { SplitText } from "gsap/SplitText";
+    gsap.registerPlugin(SplitText);
+
+    let activeSplits: SplitText[] = [];
+
+    const resetSectionSplits = () => {
+        activeSplits.forEach((split) => split.revert());
+        activeSplits = [];
+    };
+
+    const animateSectionTitles = () => {
+        const sections = document.querySelectorAll("[data-section-header]");
+
+        resetSectionSplits();
+
+        if (!sections.length) {
+            return;
+        }
+
+        sections.forEach((section, index) => {
+            const kicker = section.querySelector<HTMLElement>("[data-section-kicker]");
+            const heading = section.querySelector<HTMLElement>("[data-section-heading]");
+            const description = section.querySelector<HTMLElement>(
+                "[data-section-description]",
+            );
+
+            const timeline = gsap.timeline({
+                delay: index * 0.05,
+            });
+
+            if (heading) {
+                const split = SplitText.create(heading, { type: "words,chars" });
+                activeSplits.push(split);
+
+                timeline.fromTo(
+                    split.chars,
+                    { autoAlpha: 0, y: 16 },
+                    {
+                        autoAlpha: 1,
+                        y: 0,
+                        duration: 0.3,
+                        stagger: 0.02,
+                        ease: "power1.out",
+                    },
+                    0,
+                );
+            }
+
+            const textElements = [kicker, description].filter(Boolean);
+            if (textElements.length) {
+                timeline.fromTo(
+                    textElements,
+                    { autoAlpha: 0, y: 16 },
+                    {
+                        autoAlpha: 1,
+                        y: 0,
+                        duration: 0.3,
+                        stagger: 0.05,
+                        ease: "power1.out",
+                    },
+                    0.1,
+                );
+            }
+        });
+    };
+
+    if (document.documentElement.dataset.sfxSectionTitleListenerBound !== "1") {
+        document.addEventListener("astro:page-load", animateSectionTitles);
+        document.addEventListener("astro:before-swap", resetSectionSplits);
+        document.documentElement.dataset.sfxSectionTitleListenerBound = "1";
+    }
+
+    animateSectionTitles();
+</script>

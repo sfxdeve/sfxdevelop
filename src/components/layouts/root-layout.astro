@@ -38,7 +38,10 @@ const navItems = [
         <meta name="generator" content={Astro.generator} />
         <ClientRouter fallback="animate" />
     </head>
-    <body class="min-h-dvh font-body text-paper-50 bg-ink-950 bg-grid">
+    <body
+        class="min-h-dvh font-body text-paper-50 bg-ink-950 bg-grid"
+        data-layout-shell
+    >
         <header class="border-b-4 border-paper-50 bg-ink-950">
             <div
                 class="container mx-auto p-4 flex flex-wrap gap-3 items-center justify-between"
@@ -90,15 +93,53 @@ const navItems = [
             >
                 <p
                     class="font-mono uppercase tracking-wider text-xs text-paper-200"
+                    data-layout-footer-text
                 >
                     2026 SFX//Develops
                 </p>
                 <p
                     class="font-mono uppercase tracking-wider text-xs text-acid-100"
+                    data-layout-footer-text
                 >
                     Built with Astro + Tailwind
                 </p>
             </div>
         </footer>
+        <script>
+            import { gsap } from "gsap";
+
+            const runLayoutAnimation = () => {
+                const root = document.querySelector("[data-layout-shell]");
+
+                if (!root) {
+                    return;
+                }
+
+                gsap.fromTo(
+                    root.querySelectorAll("[data-layout-footer-text]"),
+                    { autoAlpha: 0, y: 8 },
+                    {
+                        autoAlpha: 1,
+                        y: 0,
+                        duration: 0.2,
+                        stagger: 0.05,
+                        ease: "power1.out",
+                        delay: 0.1,
+                    },
+                );
+            };
+
+            if (
+                document.documentElement.dataset.sfxLayoutListenerBound !== "1"
+            ) {
+                document.addEventListener(
+                    "astro:page-load",
+                    runLayoutAnimation,
+                );
+                document.documentElement.dataset.sfxLayoutListenerBound = "1";
+            }
+
+            runLayoutAnimation();
+        </script>
     </body>
 </html>

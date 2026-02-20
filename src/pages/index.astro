@@ -11,7 +11,7 @@ import { cn } from "../lib/utils";
 ---
 
 <RootLayout>
-	<main>
+	<main data-page="home">
 		<section class="p-4 sm:py-12">
 			<div class="container mx-auto">
 				<article
@@ -20,22 +20,26 @@ import { cn } from "../lib/utils";
 					<div class="space-y-5">
 						<p
 							class="font-mono uppercase tracking-widest text-xs text-acid-300"
+							data-home-hero-kicker
 						>
 							Available for impact first teams
 						</p>
 						<h3
 							class="max-w-2xl font-display uppercase tracking-wider text-5xl sm:text-9xl"
+							data-home-hero-title
 						>
 							{profile.name}
 						</h3>
 						<div class="flex flex-wrap gap-2">
 							<div
 								class="border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100"
+								data-home-hero-meta-item
 							>
 								{profile.title}
 							</div>
 							<div
 								class="border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100"
+								data-home-hero-meta-item
 							>
 								{profile.location}
 							</div>
@@ -43,18 +47,22 @@ import { cn } from "../lib/utils";
 						<div class="space-y-2">
 							{
 								profile.summary.map((paragraph) => (
-									<p class="max-w-2xl text-base text-paper-100 sm:text-lg">
+									<p
+										class="max-w-2xl text-base text-paper-100 sm:text-lg"
+										data-home-hero-copy
+									>
 										{paragraph}
 									</p>
 								))
 							}
 							<p
 								class="uppercase tracking-widest text-safety-300"
+								data-home-hero-copy
 							>
 								{profile.relocationNote}
 							</p>
 						</div>
-						<ul class="flex flex-wrap gap-3">
+						<ul class="flex flex-wrap gap-3" data-home-hero-actions>
 							<li>
 								<ButtonLink href="/work" variant="solid"
 									>See Work
@@ -81,7 +89,10 @@ import { cn } from "../lib/utils";
 						<ul class="flex flex-wrap gap-2">
 							{
 								coreCompetencies.map((item) => (
-									<li class="border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100">
+									<li
+										class="border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100"
+										data-home-competency
+									>
 										{item}
 									</li>
 								))
@@ -101,12 +112,16 @@ import { cn } from "../lib/utils";
 				{
 					featuredExperience.map((item, index) => (
 						<li>
-							<article class="space-y-6 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6">
+							<article
+								class="space-y-6 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
+								data-home-feature-card
+							>
 								<div
 									class={cn(
 										"h-2 w-16 bg-acid-300",
 										index % 2 === 0 && "bg-safety-500",
 									)}
+									data-home-feature-accent
 								/>
 								<div class="space-y-4">
 									<div class="space-y-1">
@@ -131,7 +146,7 @@ import { cn } from "../lib/utils";
 										)}
 									>
 										{item.achievements.map((point) => (
-											<li>{point}</li>
+											<li data-home-feature-point>{point}</li>
 										))}
 									</ul>
 								</div>
@@ -143,3 +158,147 @@ import { cn } from "../lib/utils";
 		</section>
 	</main>
 </RootLayout>
+<script>
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	import { SplitText } from "gsap/SplitText";
+	gsap.registerPlugin(ScrollTrigger, SplitText);
+
+	let homeHeroTitleSplit: SplitText | null = null;
+
+	const resetHomeSplit = () => {
+		if (homeHeroTitleSplit) {
+			homeHeroTitleSplit.revert();
+			homeHeroTitleSplit = null;
+		}
+	};
+
+	const runHomeAnimations = () => {
+		const root = document.querySelector('[data-page="home"]');
+
+		if (!root) {
+			return;
+		}
+
+		resetHomeSplit();
+		ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+
+		const heroTitle = root.querySelector<HTMLElement>("[data-home-hero-title]");
+		if (heroTitle) {
+			homeHeroTitleSplit = SplitText.create(heroTitle, { type: "words,chars" });
+		}
+
+		if (homeHeroTitleSplit) {
+			gsap.fromTo(
+				homeHeroTitleSplit.chars,
+				{ autoAlpha: 0, y: 16 },
+				{
+					autoAlpha: 1,
+					y: 0,
+					duration: 0.3,
+					stagger: 0.02,
+					ease: "power1.out",
+				},
+			);
+		}
+
+		gsap.fromTo(
+			root.querySelectorAll(
+				"[data-home-hero-kicker], [data-home-hero-meta-item], [data-home-hero-copy], [data-home-hero-actions] li",
+			),
+			{ autoAlpha: 0, y: 16 },
+			{
+				autoAlpha: 1,
+				y: 0,
+				duration: 0.3,
+				stagger: 0.05,
+				ease: "power1.out",
+			},
+		);
+
+		const competencyChips =
+			gsap.utils.toArray<HTMLElement>("[data-home-competency]");
+		ScrollTrigger.batch(competencyChips, {
+			start: "top 85%",
+			once: true,
+			onEnter: (batch) => {
+				gsap.fromTo(
+					batch,
+					{ autoAlpha: 0, y: 8 },
+					{
+						autoAlpha: 1,
+						y: 0,
+						stagger: 0.05,
+						duration: 0.2,
+						ease: "power1.out",
+					},
+				);
+			},
+		});
+
+		gsap.utils.toArray<HTMLElement>("[data-home-feature-card]").forEach((card) => {
+			const accent = card.querySelector("[data-home-feature-accent]");
+			const points = card.querySelectorAll("[data-home-feature-point]");
+
+			gsap.fromTo(
+				card,
+				{ autoAlpha: 0, y: 24 },
+				{
+					autoAlpha: 1,
+					y: 0,
+					duration: 0.3,
+					ease: "power1.out",
+					scrollTrigger: {
+						trigger: card,
+						start: "top 85%",
+						once: true,
+					},
+				},
+			);
+
+			if (accent) {
+				gsap.fromTo(
+					accent,
+					{ scaleX: 0, transformOrigin: "left center" },
+					{
+						scaleX: 1,
+						duration: 0.2,
+						ease: "power1.out",
+						scrollTrigger: {
+							trigger: card,
+							start: "top 85%",
+							once: true,
+						},
+					},
+				);
+			}
+
+			gsap.fromTo(
+				points,
+				{ autoAlpha: 0, x: -8 },
+				{
+					autoAlpha: 1,
+					x: 0,
+					stagger: 0.05,
+					duration: 0.2,
+					ease: "power1.out",
+					scrollTrigger: {
+						trigger: card,
+						start: "top 80%",
+						once: true,
+					},
+				},
+			);
+		});
+
+		ScrollTrigger.refresh();
+	};
+
+	if (document.documentElement.dataset.sfxHomeListenerBound !== "1") {
+		document.addEventListener("astro:page-load", runHomeAnimations);
+		document.addEventListener("astro:before-swap", resetHomeSplit);
+		document.documentElement.dataset.sfxHomeListenerBound = "1";
+	}
+
+	runHomeAnimations();
+</script>

@@ -10,7 +10,7 @@ import { cn } from "../../lib/utils";
 	title="Work"
 	description="Experience timeline for Shayan Fareed across production full-stack roles and freelance delivery."
 >
-	<main>
+	<main data-page="work">
 		<SectionTitle
 			kicker="Experience"
 			title="Work History"
@@ -25,8 +25,11 @@ import { cn } from "../../lib/utils";
 			<ul class="space-y-4 container mx-auto">
 				{
 					experience.map((item, index) => (
-						<li class="grid gap-4 lg:grid-cols-[14rem_1fr]">
-							<div class="space-y-2 border-l-4 border-acid-300 pl-4 lg:border-l-0 lg:border-r-4 lg:pl-0">
+						<li class="grid gap-4 lg:grid-cols-[14rem_1fr]" data-work-item>
+							<div
+								class="space-y-2 border-l-4 border-acid-300 pl-4 lg:border-l-0 lg:border-r-4 lg:pl-0"
+								data-work-period
+							>
 								<p class="font-mono uppercase tracking-widest text-xs">
 									{item.startDate} - {item.endDate}
 								</p>
@@ -34,12 +37,16 @@ import { cn } from "../../lib/utils";
 									{item.location}
 								</span>
 							</div>
-							<article class="space-y-6 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6">
+							<article
+								class="space-y-6 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
+								data-work-card
+							>
 								<div
 									class={cn(
 										"h-2 w-16 bg-acid-300",
 										index % 2 === 0 && "bg-safety-500",
 									)}
+									data-work-bar
 								/>
 								<div class="space-y-4">
 									<div class="space-y-1">
@@ -64,7 +71,7 @@ import { cn } from "../../lib/utils";
 										)}
 									>
 										{item.achievements.map((point) => (
-											<li>{point}</li>
+											<li data-work-bullet>{point}</li>
 										))}
 									</ul>
 								</div>
@@ -76,3 +83,85 @@ import { cn } from "../../lib/utils";
 		</section>
 	</main>
 </RootLayout>
+<script>
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	gsap.registerPlugin(ScrollTrigger);
+
+	const runWorkAnimations = () => {
+		const root = document.querySelector('[data-page="work"]');
+
+		if (!root) {
+			return;
+		}
+
+		ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+
+		gsap.utils.toArray<HTMLElement>("[data-work-item]").forEach((row) => {
+			const dateBlock = row.querySelector("[data-work-period]");
+			const card = row.querySelector("[data-work-card]");
+			const accent = row.querySelector("[data-work-bar]");
+			const points = row.querySelectorAll("[data-work-bullet]");
+
+			gsap.fromTo(
+				[dateBlock, card],
+				{ autoAlpha: 0, y: 16 },
+				{
+					autoAlpha: 1,
+					y: 0,
+					duration: 0.3,
+					stagger: 0.05,
+					ease: "power1.out",
+					scrollTrigger: {
+						trigger: row,
+						start: "top 85%",
+						once: true,
+					},
+				},
+			);
+
+			if (accent) {
+				gsap.fromTo(
+					accent,
+					{ scaleX: 0, transformOrigin: "left center" },
+					{
+						scaleX: 1,
+						duration: 0.2,
+						ease: "power1.out",
+						scrollTrigger: {
+							trigger: row,
+							start: "top 85%",
+							once: true,
+						},
+					},
+				);
+			}
+
+			gsap.fromTo(
+				points,
+				{ autoAlpha: 0, x: -8 },
+				{
+					autoAlpha: 1,
+					x: 0,
+					stagger: 0.05,
+					duration: 0.2,
+					ease: "power1.out",
+					scrollTrigger: {
+						trigger: row,
+						start: "top 80%",
+						once: true,
+					},
+				},
+			);
+		});
+
+		ScrollTrigger.refresh();
+	};
+
+	if (document.documentElement.dataset.sfxWorkListenerBound !== "1") {
+		document.addEventListener("astro:page-load", runWorkAnimations);
+		document.documentElement.dataset.sfxWorkListenerBound = "1";
+	}
+
+	runWorkAnimations();
+</script>

@@ -8,7 +8,7 @@ import { profile } from "../../data/portfolio";
 	title="Contact"
 	description="Direct contact details for Shayan Fareed including email, phone, LinkedIn, and GitHub."
 >
-	<main>
+	<main data-page="contact">
 		<SectionTitle
 			kicker="Contact"
 			title="Open for collaboration"
@@ -20,13 +20,18 @@ import { profile } from "../../data/portfolio";
 			>
 				<article
 					class="space-y-5 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
+					data-contact-form-panel
 				>
 					<h3
 						class="font-display uppercase tracking-wider text-3xl sm:text-5xl"
+						data-contact-heading
 					>
 						Let&apos;s build something that ships
 					</h3>
-					<p class="max-w-2xl text-base text-paper-100 sm:text-lg">
+					<p
+						class="max-w-2xl text-base text-paper-100 sm:text-lg"
+						data-contact-intro
+					>
 						Send a quick message and I&apos;ll reply as soon as
 						possible.
 					</p>
@@ -38,7 +43,7 @@ import { profile } from "../../data/portfolio";
 						class="space-y-4"
 					>
 						<div class="grid gap-4 sm:grid-cols-2">
-							<label class="space-y-2">
+							<label class="space-y-2" data-contact-input-group>
 								<span
 									class="font-mono uppercase tracking-wider text-xs text-paper-300"
 								>
@@ -51,7 +56,7 @@ import { profile } from "../../data/portfolio";
 									class="w-full border-4 border-paper-50 bg-ink-950 px-3 py-2 text-paper-50 outline-none transition duration-300 ease-out focus:border-acid-300"
 								/>
 							</label>
-							<label class="space-y-2">
+							<label class="space-y-2" data-contact-input-group>
 								<span
 									class="font-mono uppercase tracking-wider text-xs text-paper-300"
 								>
@@ -64,7 +69,10 @@ import { profile } from "../../data/portfolio";
 									class="w-full border-4 border-paper-50 bg-ink-950 px-3 py-2 text-paper-50 outline-none transition duration-300 ease-out focus:border-acid-300"
 								/>
 							</label>
-							<label class="space-y-2 sm:col-span-2">
+							<label
+								class="space-y-2 sm:col-span-2"
+								data-contact-input-group
+							>
 								<span
 									class="font-mono uppercase tracking-wider text-xs text-paper-300"
 								>
@@ -77,7 +85,7 @@ import { profile } from "../../data/portfolio";
 									class="w-full border-4 border-paper-50 bg-ink-950 px-3 py-2 text-paper-50 outline-none transition duration-300 ease-out placeholder:text-paper-400 focus:border-acid-300"
 								/>
 							</label>
-							<label class="space-y-2">
+							<label class="space-y-2" data-contact-input-group>
 								<span
 									class="font-mono uppercase tracking-wider text-xs text-paper-300"
 								>
@@ -101,7 +109,7 @@ import { profile } from "../../data/portfolio";
 									<option value="other">Other</option>
 								</select>
 							</label>
-							<label class="space-y-2">
+							<label class="space-y-2" data-contact-input-group>
 								<span
 									class="font-mono uppercase tracking-wider text-xs text-paper-300"
 								>
@@ -115,7 +123,10 @@ import { profile } from "../../data/portfolio";
 									class="w-full border-4 border-paper-50 bg-ink-950 px-3 py-2 text-paper-50 outline-none transition duration-300 ease-out focus:border-acid-300"
 								/>
 							</label>
-							<label class="space-y-2 sm:col-span-2">
+							<label
+								class="space-y-2 sm:col-span-2"
+								data-contact-input-group
+							>
 								<span
 									class="font-mono uppercase tracking-wider text-xs text-paper-300"
 								>
@@ -133,6 +144,7 @@ import { profile } from "../../data/portfolio";
 						<button
 							type="submit"
 							class="border-4 border-acid-300 bg-acid-300 px-5 py-2 font-bold uppercase tracking-widest text-xs text-ink-950 transition duration-300 ease-out hover:bg-paper-50"
+							data-contact-submit
 						>
 							Send Message
 						</button>
@@ -140,6 +152,7 @@ import { profile } from "../../data/portfolio";
 				</article>
 				<article
 					class="space-y-5 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
+					data-contact-direct-panel
 				>
 					<h3
 						class="font-mono uppercase tracking-widest text-xs text-paper-300"
@@ -156,6 +169,7 @@ import { profile } from "../../data/portfolio";
 							<a
 								href={`mailto:${profile.contact.email}`}
 								class="underline underline-offset-4 decoration-acid-300 text-paper-50"
+								data-contact-direct-link
 							>
 								{profile.contact.email}
 							</a>
@@ -169,6 +183,7 @@ import { profile } from "../../data/portfolio";
 							<a
 								href={`tel:${profile.contact.phone}`}
 								class="underline underline-offset-4 decoration-acid-300 text-paper-50"
+								data-contact-direct-link
 							>
 								{profile.contact.phone}
 							</a>
@@ -183,6 +198,7 @@ import { profile } from "../../data/portfolio";
 								href={profile.contact.linkedIn}
 								target="_blank"
 								class="underline underline-offset-4 decoration-acid-300 text-paper-50"
+								data-contact-direct-link
 							>
 								{
 									profile.contact.linkedIn.replace(
@@ -202,6 +218,7 @@ import { profile } from "../../data/portfolio";
 								href={profile.contact.github}
 								target="_blank"
 								class="underline underline-offset-4 decoration-acid-300 text-paper-50"
+								data-contact-direct-link
 							>
 								{profile.contact.github.replace("https://", "")}
 							</a>
@@ -212,3 +229,91 @@ import { profile } from "../../data/portfolio";
 		</section>
 	</main>
 </RootLayout>
+<script>
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	gsap.registerPlugin(ScrollTrigger);
+
+	const runContactAnimations = () => {
+		const root = document.querySelector('[data-page="contact"]');
+
+		if (!root) {
+			return;
+		}
+
+		ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+
+		gsap.fromTo(
+			root.querySelectorAll(
+				"[data-contact-heading], [data-contact-intro]",
+			),
+			{ autoAlpha: 0, y: 16 },
+			{
+				autoAlpha: 1,
+				y: 0,
+				duration: 0.3,
+				stagger: 0.05,
+				ease: "power1.out",
+			},
+		);
+
+		gsap.fromTo(
+			root.querySelectorAll("[data-contact-input-group], [data-contact-submit]"),
+			{ autoAlpha: 0, y: 8 },
+			{
+				autoAlpha: 1,
+				y: 0,
+				duration: 0.2,
+				stagger: 0.05,
+				ease: "power1.out",
+				scrollTrigger: {
+					trigger: "[data-contact-form-panel]",
+					start: "top 85%",
+					once: true,
+				},
+			},
+		);
+
+		gsap.fromTo(
+			root.querySelector("[data-contact-direct-panel]"),
+			{ autoAlpha: 0, x: 16 },
+			{
+				autoAlpha: 1,
+				x: 0,
+				duration: 0.3,
+				ease: "power1.out",
+				scrollTrigger: {
+					trigger: "[data-contact-direct-panel]",
+					start: "top 85%",
+					once: true,
+				},
+			},
+		);
+
+		gsap.fromTo(
+			root.querySelectorAll("[data-contact-direct-link]"),
+			{ autoAlpha: 0, x: -8 },
+			{
+				autoAlpha: 1,
+				x: 0,
+				duration: 0.2,
+				stagger: 0.05,
+				ease: "power1.out",
+				scrollTrigger: {
+					trigger: "[data-contact-direct-panel]",
+					start: "top 80%",
+					once: true,
+				},
+			},
+		);
+
+		ScrollTrigger.refresh();
+	};
+
+	if (document.documentElement.dataset.sfxContactListenerBound !== "1") {
+		document.addEventListener("astro:page-load", runContactAnimations);
+		document.documentElement.dataset.sfxContactListenerBound = "1";
+	}
+
+	runContactAnimations();
+</script>
