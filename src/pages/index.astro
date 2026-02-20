@@ -19,26 +19,26 @@ import { cn } from "../lib/utils";
 				>
 					<div class="space-y-5">
 						<p
-							class="font-mono uppercase tracking-widest text-xs text-acid-300"
+							class="invisible opacity-0 font-mono uppercase tracking-widest text-xs text-acid-300"
 							data-home-hero-kicker
 						>
 							Available for impact first teams
 						</p>
 						<h3
-							class="max-w-2xl font-display uppercase tracking-wider text-5xl sm:text-9xl"
+							class="invisible opacity-0 max-w-2xl font-display uppercase tracking-wider text-5xl sm:text-9xl"
 							data-home-hero-title
 						>
 							{profile.name}
 						</h3>
 						<div class="flex flex-wrap gap-2">
 							<div
-								class="border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100"
+								class="invisible opacity-0 border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100"
 								data-home-hero-meta-item
 							>
 								{profile.title}
 							</div>
 							<div
-								class="border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100"
+								class="invisible opacity-0 border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100"
 								data-home-hero-meta-item
 							>
 								{profile.location}
@@ -48,7 +48,7 @@ import { cn } from "../lib/utils";
 							{
 								profile.summary.map((paragraph) => (
 									<p
-										class="max-w-2xl text-base text-paper-100 sm:text-lg"
+										class="invisible opacity-0 max-w-2xl text-base text-paper-100 sm:text-lg"
 										data-home-hero-copy
 									>
 										{paragraph}
@@ -56,24 +56,24 @@ import { cn } from "../lib/utils";
 								))
 							}
 							<p
-								class="uppercase tracking-widest text-safety-300"
+								class="invisible opacity-0 uppercase tracking-widest text-safety-300"
 								data-home-hero-copy
 							>
 								{profile.relocationNote}
 							</p>
 						</div>
 						<ul class="flex flex-wrap gap-3" data-home-hero-actions>
-							<li>
+							<li class="invisible opacity-0">
 								<ButtonLink href="/work" variant="solid"
 									>See Work
 								</ButtonLink>
 							</li>
-							<li>
+							<li class="invisible opacity-0">
 								<ButtonLink href="/resume" variant="outline"
 									>Open Resume
 								</ButtonLink>
 							</li>
-							<li>
+							<li class="invisible opacity-0">
 								<ButtonLink href="/contact" variant="outline"
 									>Contact
 								</ButtonLink>
@@ -90,7 +90,7 @@ import { cn } from "../lib/utils";
 							{
 								coreCompetencies.map((item) => (
 									<li
-										class="border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100"
+										class="invisible opacity-0 border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100"
 										data-home-competency
 									>
 										{item}
@@ -113,7 +113,7 @@ import { cn } from "../lib/utils";
 					featuredExperience.map((item, index) => (
 						<li>
 							<article
-								class="space-y-6 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
+								class="invisible opacity-0 space-y-6 border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
 								data-home-feature-card
 							>
 								<div
@@ -146,7 +146,10 @@ import { cn } from "../lib/utils";
 										)}
 									>
 										{item.achievements.map((point) => (
-											<li data-home-feature-point>
+											<li
+												class="invisible opacity-0"
+												data-home-feature-point
+											>
 												{point}
 											</li>
 										))}

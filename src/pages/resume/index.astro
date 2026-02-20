@@ -30,7 +30,7 @@ import { cn } from "../../lib/utils";
 			>
 				<li>
 					<article
-						class="space-y-6 h-full border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
+						class="invisible opacity-0 space-y-6 h-full border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
 						data-resume-card
 					>
 						<div class={"h-2 w-16 bg-safety-500"}></div>
@@ -63,7 +63,7 @@ import { cn } from "../../lib/utils";
 					skillGroups.map((category, index) => (
 						<li>
 							<article
-								class="space-y-6 h-full border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
+								class="invisible opacity-0 space-y-6 h-full border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
 								data-resume-card
 							>
 								<div
@@ -81,7 +81,7 @@ import { cn } from "../../lib/utils";
 									<ul class="flex flex-wrap gap-2">
 										{category.items.map((skill) => (
 											<li
-												class="border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100"
+												class="invisible opacity-0 border-2 border-paper-300 py-1 px-3 font-mono uppercase tracking-widest text-xs text-paper-100"
 												data-resume-skill-chip
 											>
 												{skill}
@@ -95,7 +95,7 @@ import { cn } from "../../lib/utils";
 				}
 				<li>
 					<article
-						class="space-y-6 h-full border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
+						class="invisible opacity-0 space-y-6 h-full border-4 p-4 transition duration-300 ease-out bg-ink-900 hover:-translate-1 sm:p-6"
 						data-resume-card
 					>
 						<div
@@ -117,7 +117,7 @@ import { cn } from "../../lib/utils";
 								{
 									languages.map((language) => (
 										<li
-											class="border-b border-paper-300 flex items-start justify-between"
+											class="invisible opacity-0 border-b border-paper-300 flex items-start justify-between"
 											data-resume-language
 										>
 											<span>{language.name}</span>
