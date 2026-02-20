@@ -252,7 +252,7 @@ import { profile } from "../../data/portfolio";
 		ScrollTrigger.getAll().forEach((trigger) => {
 			const id = trigger.vars.id;
 
-			if (typeof id === "string" && id.startsWith("sfx-contact-")) {
+			if (typeof id === "string" && id.startsWith("contact-")) {
 				trigger.kill();
 			}
 		});
@@ -280,7 +280,7 @@ import { profile } from "../../data/portfolio";
 				stagger: 0.05,
 				ease: "power1.out",
 				scrollTrigger: {
-					id: "sfx-contact-header",
+					id: "contact-header",
 					trigger: formPanel || root,
 					start: "top 88%",
 					once: true,
@@ -300,7 +300,7 @@ import { profile } from "../../data/portfolio";
 				stagger: 0.05,
 				ease: "power1.out",
 				scrollTrigger: {
-					id: "sfx-contact-fields",
+					id: "contact-fields",
 					trigger: formPanel || root,
 					start: "top 85%",
 					once: true,
@@ -317,7 +317,7 @@ import { profile } from "../../data/portfolio";
 				duration: 0.3,
 				ease: "power1.out",
 				scrollTrigger: {
-					id: "sfx-contact-panel",
+					id: "contact-panel",
 					trigger: "[data-contact-direct-panel]",
 					start: "top 85%",
 					once: true,
@@ -335,7 +335,7 @@ import { profile } from "../../data/portfolio";
 				stagger: 0.05,
 				ease: "power1.out",
 				scrollTrigger: {
-					id: "sfx-contact-links",
+					id: "contact-links",
 					trigger: "[data-contact-direct-panel]",
 					start: "top 80%",
 					once: true,

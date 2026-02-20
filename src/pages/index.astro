@@ -185,7 +185,7 @@ import { cn } from "../lib/utils";
 		ScrollTrigger.getAll().forEach((trigger) => {
 			const id = trigger.vars.id;
 
-			if (typeof id === "string" && id.startsWith("sfx-home-")) {
+			if (typeof id === "string" && id.startsWith("home-")) {
 				trigger.kill();
 			}
 		});
@@ -216,7 +216,7 @@ import { cn } from "../lib/utils";
 		if (homeHeroTitleSplit && heroPanel) {
 			const heroTimeline = gsap.timeline({
 				scrollTrigger: {
-					id: "sfx-home-hero",
+					id: "home-hero",
 					trigger: heroPanel,
 					start: "top 88%",
 					once: true,
@@ -265,7 +265,7 @@ import { cn } from "../lib/utils";
 					duration: 0.2,
 					ease: "power1.out",
 					scrollTrigger: {
-						id: `sfx-home-competency-${index}`,
+						id: `home-competency-${index}`,
 						trigger: chip,
 						start: "top 88%",
 						once: true,
@@ -291,7 +291,7 @@ import { cn } from "../lib/utils";
 						duration: 0.3,
 						ease: "power1.out",
 						scrollTrigger: {
-							id: `sfx-home-feature-card-${index}`,
+							id: `home-feature-card-${index}`,
 							trigger: card,
 							start: "top 85%",
 							once: true,
@@ -308,7 +308,7 @@ import { cn } from "../lib/utils";
 							duration: 0.2,
 							ease: "power1.out",
 							scrollTrigger: {
-								id: `sfx-home-feature-accent-${index}`,
+								id: `home-feature-accent-${index}`,
 								trigger: card,
 								start: "top 85%",
 								once: true,
@@ -327,7 +327,7 @@ import { cn } from "../lib/utils";
 						duration: 0.2,
 						ease: "power1.out",
 						scrollTrigger: {
-							id: `sfx-home-feature-points-${index}`,
+							id: `home-feature-points-${index}`,
 							trigger: card,
 							start: "top 80%",
 							once: true,

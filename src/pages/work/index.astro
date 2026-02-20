@@ -74,7 +74,10 @@ import { cn } from "../../lib/utils";
 										)}
 									>
 										{item.achievements.map((point) => (
-											<li class="invisible opacity-0" data-work-bullet>
+											<li
+												class="invisible opacity-0"
+												data-work-bullet
+											>
 												{point}
 											</li>
 										))}
@@ -99,7 +102,7 @@ import { cn } from "../../lib/utils";
 		ScrollTrigger.getAll().forEach((trigger) => {
 			const id = trigger.vars.id;
 
-			if (typeof id === "string" && id.startsWith("sfx-work-")) {
+			if (typeof id === "string" && id.startsWith("work-")) {
 				trigger.kill();
 			}
 		});
@@ -122,9 +125,9 @@ import { cn } from "../../lib/utils";
 				const accent = row.querySelector("[data-work-bar]");
 				const points = row.querySelectorAll("[data-work-bullet]");
 
-					gsap.fromTo(
-						[dateBlock, card],
-						{ autoAlpha: 0, y: 16 },
+				gsap.fromTo(
+					[dateBlock, card],
+					{ autoAlpha: 0, y: 16 },
 					{
 						autoAlpha: 1,
 						y: 0,
@@ -132,13 +135,13 @@ import { cn } from "../../lib/utils";
 						stagger: 0.05,
 						ease: "power1.out",
 						scrollTrigger: {
-							id: `sfx-work-row-${index}`,
+							id: `work-row-${index}`,
 							trigger: row,
 							start: "top 85%",
 							once: true,
-							},
 						},
-					);
+					},
+				);
 
 				if (accent) {
 					gsap.fromTo(
@@ -149,7 +152,7 @@ import { cn } from "../../lib/utils";
 							duration: 0.2,
 							ease: "power1.out",
 							scrollTrigger: {
-								id: `sfx-work-accent-${index}`,
+								id: `work-accent-${index}`,
 								trigger: row,
 								start: "top 85%",
 								once: true,
@@ -168,7 +171,7 @@ import { cn } from "../../lib/utils";
 						duration: 0.2,
 						ease: "power1.out",
 						scrollTrigger: {
-							id: `sfx-work-points-${index}`,
+							id: `work-points-${index}`,
 							trigger: row,
 							start: "top 80%",
 							once: true,

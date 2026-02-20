@@ -7,10 +7,8 @@ const { label } = Astro.props;
 ---
 
 <div class="flex gap-3 items-center">
-    <div
-        class="invisible opacity-0 h-1 w-full bg-paper-50"
-        data-divider-line
-    ></div>
+    <div class="invisible opacity-0 h-1 w-full bg-paper-50" data-divider-line>
+    </div>
     {
         label && (
             <span
@@ -33,7 +31,7 @@ const { label } = Astro.props;
         ScrollTrigger.getAll().forEach((trigger) => {
             const id = trigger.vars.id;
 
-            if (typeof id === "string" && id.startsWith("sfx-divider-")) {
+            if (typeof id === "string" && id.startsWith("divider-")) {
                 trigger.kill();
             }
         });
@@ -57,7 +55,7 @@ const { label } = Astro.props;
 
             const timeline = gsap.timeline({
                 scrollTrigger: {
-                    id: `sfx-divider-${index}`,
+                    id: `divider-${index}`,
                     trigger: root,
                     start: "top 90%",
                     once: true,

@@ -118,7 +118,7 @@ const navItems = [
         ScrollTrigger.getAll().forEach((trigger) => {
             const id = trigger.vars.id;
 
-            if (typeof id === "string" && id.startsWith("sfx-layout-")) {
+            if (typeof id === "string" && id.startsWith("layout-")) {
                 trigger.kill();
             }
         });
@@ -144,7 +144,7 @@ const navItems = [
                 stagger: 0.05,
                 ease: "power1.out",
                 scrollTrigger: {
-                    id: "sfx-layout-footer",
+                    id: "layout-footer",
                     trigger: footer,
                     start: "top 95%",
                     once: true,

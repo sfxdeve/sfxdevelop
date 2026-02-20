@@ -57,10 +57,7 @@ const { kicker, title, description } = Astro.props;
         ScrollTrigger.getAll().forEach((trigger) => {
             const id = trigger.vars.id;
 
-            if (
-                typeof id === "string" &&
-                id.startsWith("sfx-section-title-")
-            ) {
+            if (typeof id === "string" && id.startsWith("section-title-")) {
                 trigger.kill();
             }
         });
@@ -89,7 +86,7 @@ const { kicker, title, description } = Astro.props;
 
             const timeline = gsap.timeline({
                 scrollTrigger: {
-                    id: `sfx-section-title-${index}`,
+                    id: `section-title-${index}`,
                     trigger: section,
                     start: "top 88%",
                     once: true,
