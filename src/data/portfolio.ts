@@ -50,8 +50,8 @@ export const experience: ExperienceItem[] = [
   //   ],
   // },
   {
-    role: "Freelance Full Stack Developer (Upwork)",
-    company: "Independent",
+    role: "Freelance Full Stack Developer",
+    company: "Upwork",
     location: "Remote",
     startDate: "Jan 2025",
     endDate: "Present",
@@ -63,7 +63,7 @@ export const experience: ExperienceItem[] = [
     ],
   },
   {
-    role: "Associate Software Engineer",
+    role: "Software Engineer",
     company: "Jumppace Pvt Ltd",
     location: "Karachi, Pakistan",
     startDate: "Oct 2023",
