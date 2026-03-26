@@ -7,20 +7,20 @@
   --font-display: "Fraunces", serif;
   --font-mono: "IBM Plex Mono", monospace;
 
-  --color-ink-950: #100f0d;
-  --color-ink-900: #171513;
-  --color-ink-850: #1d1a17;
-  --color-ink-800: #26211d;
+  --color-ink-950: #0d0c0e;
+  --color-ink-900: #130f11;
+  --color-ink-850: #1a1316;
+  --color-ink-800: #22181c;
 
-  --color-paper-50: #f4ede2;
-  --color-paper-100: #e8dece;
-  --color-paper-200: #cabfae;
-  --color-paper-300: #aa9d8c;
+  --color-paper-50: #f5eef0;
+  --color-paper-100: #e6d8dc;
+  --color-paper-200: #c4aeb4;
+  --color-paper-300: #9e8589;
 
-  --color-amber-200: #d2aa71;
-  --color-amber-300: #bf8c4a;
-  --color-amber-400: #a9732f;
-  --color-amber-500: #8f5b1c;
+  --color-rose-200: #e8919e;
+  --color-rose-300: #cc4d6a;
+  --color-rose-400: #b02848;
+  --color-rose-500: #8a1530;
 }
 
 :root {
@@ -30,42 +30,55 @@
 body {
   color: var(--color-paper-50);
   background:
-    radial-gradient(circle at 20% -10%, rgb(191 140 74 / 0.2), transparent 28%),
-    linear-gradient(180deg, #100f0d 0%, #171513 48%, #1d1a17 100%);
+    radial-gradient(
+      circle at 20% -10%,
+      rgb(204 77 106 / 0.18),
+      transparent 28%
+    ),
+    linear-gradient(180deg, #0d0c0e 0%, #130f11 48%, #1a1316 100%);
 }
 
 ::selection {
   color: var(--color-ink-950);
-  background: var(--color-amber-200);
+  background: var(--color-rose-200);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-amber-300);
+  outline: 2px solid var(--color-rose-300);
   outline-offset: 2px;
 }
 
 @utility bg-site {
   background:
-    radial-gradient(circle at 20% -10%, rgb(191 140 74 / 0.2), transparent 28%),
-    linear-gradient(180deg, #100f0d 0%, #171513 48%, #1d1a17 100%);
+    radial-gradient(
+      circle at 20% -10%,
+      rgb(204 77 106 / 0.18),
+      transparent 28%
+    ),
+    linear-gradient(180deg, #0d0c0e 0%, #130f11 48%, #1a1316 100%);
 }
 
 @utility surface {
-  border: 1px solid rgb(232 222 206 / 0.2);
-  background-color: rgb(23 21 19 / 0.72);
+  border: 1px solid rgb(230 216 220 / 0.2);
+  background-color: rgb(19 15 17 / 0.72);
   box-shadow: 0 10px 30px rgb(0 0 0 / 0.2);
   backdrop-filter: blur(4px);
 }
 
 @utility surface-muted {
-  border: 1px solid rgb(202 191 174 / 0.18);
-  background-color: rgb(29 26 23 / 0.64);
+  border: 1px solid rgb(196 174 180 / 0.18);
+  background-color: rgb(26 19 22 / 0.64);
 }
 
 @utility accent-line {
   height: 1px;
   width: 100%;
-  background: linear-gradient(90deg, transparent 0%, rgb(191 140 74 / 0.8) 48%, transparent 100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(204 77 106 / 0.8) 48%,
+    transparent 100%
+  );
 }
 
 @utility eyebrow {
@@ -83,7 +96,7 @@ body {
 
 @layer utilities {
   .focus-ring:focus-visible {
-    outline: 2px solid rgb(191 140 74 / 0.95);
+    outline: 2px solid rgb(204 77 106 / 0.95);
     outline-offset: 2px;
   }
 }
