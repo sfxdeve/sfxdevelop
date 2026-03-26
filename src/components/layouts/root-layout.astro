@@ -24,23 +24,31 @@ const navItems = [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{`${title ? title : "Shayan Fareed"} | Full Stack JavaScript Developer`}</title>
+    <title>
+      {`${title ? title : "Shayan Fareed"} | Full Stack JavaScript Developer`}
+    </title>
     <meta
       name="description"
-      content={
-        description
-          ? description
-          : "Portfolio of Shayan Fareed, Full Stack JavaScript Developer building scalable web applications."
-      }
+      content={description
+        ? description
+        : "Portfolio of Shayan Fareed, Full Stack JavaScript Developer building scalable web applications."}
     />
     <meta name="theme-color" content="#100f0d" />
     <meta name="generator" content={Astro.generator} />
     <ClientRouter fallback="animate" />
   </head>
   <body class="min-h-dvh bg-site font-body text-paper-50" data-layout-shell>
-    <header class="sticky top-0 z-40 border-b border-paper-200/10 bg-ink-900/85 backdrop-blur" data-layout-header>
-      <div class="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
-        <a href="/" class="focus-ring font-display text-2xl font-bold tracking-tight text-paper-50 sm:text-3xl">
+    <header
+      class="sticky top-0 z-40 border-b border-paper-200/10 bg-ink-900/85 backdrop-blur"
+      data-layout-header
+    >
+      <div
+        class="mx-auto flex flex-col sm:flex-row w-full max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6"
+      >
+        <a
+          href="/"
+          class="focus-ring font-display text-2xl font-bold tracking-tight text-paper-50 sm:text-3xl"
+        >
           SFX//Develops
         </a>
         <nav>
@@ -49,7 +57,10 @@ const navItems = [
               navItems.map((item) => {
                 const currPath = normalizePath(Astro.url.pathname);
                 const itemPath = normalizePath(item.href);
-                const itemIsActive = itemPath === "/" ? currPath === "/" : currPath.startsWith(itemPath);
+                const itemIsActive =
+                  itemPath === "/"
+                    ? currPath === "/"
+                    : currPath.startsWith(itemPath);
 
                 return (
                   <li>
@@ -73,10 +84,22 @@ const navItems = [
 
     <slot />
 
-    <footer class="mt-8 border-t border-paper-200/10 px-4 py-7 sm:mt-10 sm:px-6 sm:py-8">
-      <div class="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-4">
-        <p class="invisible opacity-0 eyebrow text-paper-300" data-layout-footer-text>2026 SFX//Develops</p>
-        <p class="invisible opacity-0 text-sm text-paper-200" data-layout-footer-text>
+    <footer
+      class="mt-8 border-t border-paper-200/10 px-4 py-7 sm:mt-10 sm:px-6 sm:py-8"
+    >
+      <div
+        class="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-4"
+      >
+        <p
+          class="invisible opacity-0 eyebrow text-paper-300"
+          data-layout-footer-text
+        >
+          2026 SFX//Develops
+        </p>
+        <p
+          class="invisible opacity-0 text-sm text-paper-200"
+          data-layout-footer-text
+        >
           Available for full stack product engineering.
         </p>
       </div>
